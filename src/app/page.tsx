@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const projects = [
@@ -274,6 +274,16 @@ export default function Home() {
             >
               <a href="https://blog.csdn.net/m0_74331272?type=blog" target="_blank" rel="noopener noreferrer" aria-label="CSDN Blog">
                 <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-border transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer"
+              asChild
+            >
+              <a href="https://www.instagram.com/ericwang1358/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </Button>
           </div>
