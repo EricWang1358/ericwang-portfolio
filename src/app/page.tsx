@@ -49,8 +49,7 @@ const skills = [
 const education = {
   school: "The Chinese University of Hong Kong, Shenzhen",
   degree: "B.Sc. in Computer Science",
-  period: "2021 - 2025",
-  gpa: "3.2/4.0",
+  period: "2022 - 2026",
 };
 
 export default function Home() {
@@ -205,7 +204,7 @@ export default function Home() {
                 </div>
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground">{education.degree}</p>
                 <p className="text-xs sm:text-sm text-muted-foreground">{education.school}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{education.period} | GPA: {education.gpa}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{education.period}</p>
               </div>
             </div>
             <div>
