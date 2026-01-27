@@ -123,3 +123,45 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .markdown {
+    @apply text-sm sm:text-base text-foreground;
+  }
+  .markdown h1 {
+    @apply mt-8 mb-4 text-3xl font-bold;
+  }
+  .markdown h2 {
+    @apply mt-8 mb-3 text-2xl font-semibold;
+  }
+  .markdown h3 {
+    @apply mt-6 mb-2 text-xl font-semibold;
+  }
+  .markdown p {
+    @apply my-3 leading-relaxed text-muted-foreground;
+  }
+  .markdown a {
+    @apply underline underline-offset-4 text-foreground;
+  }
+  .markdown ul {
+    @apply my-3 list-disc pl-6 text-muted-foreground;
+  }
+  .markdown ol {
+    @apply my-3 list-decimal pl-6 text-muted-foreground;
+  }
+  .markdown li {
+    @apply my-1;
+  }
+  .markdown blockquote {
+    @apply my-4 border-l-2 border-border pl-4 text-muted-foreground;
+  }
+  .markdown code {
+    @apply rounded bg-accent px-1.5 py-0.5 text-[0.9em] text-accent-foreground;
+  }
+  .markdown pre {
+    @apply my-4 overflow-x-auto rounded-lg border border-border bg-card p-4;
+  }
+  .markdown pre code {
+    @apply bg-transparent p-0;
+  }
+}

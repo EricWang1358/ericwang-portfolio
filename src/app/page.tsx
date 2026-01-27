@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram } from "lucide-react";
@@ -296,6 +297,14 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-muted-foreground">
             © {new Date().getFullYear()} Eric Wang. Built with Next.js & TailwindCSS.
           </p>
+          <div className="mt-3">
+            <Link
+              href="/about"
+              className="text-xs sm:text-sm underline underline-offset-4 text-muted-foreground hover:text-foreground"
+            >
+              About this site
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
