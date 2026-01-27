@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const projects = [
@@ -242,7 +242,7 @@ export default function Home() {
               className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-border transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer"
               asChild
             >
-              <a href="mailto:eric1064271358@163.com" aria-label="Email">
+              <a href="mailto:1064271358@qq.com" aria-label="Email">
                 <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </Button>
@@ -262,8 +262,18 @@ export default function Home() {
               className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-border transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer"
               asChild
             >
-              <a href="https://linkedin.com/in/ericwang" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/%E5%AD%90%E6%98%82-%E7%8E%8B-544237334/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-border transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer"
+              asChild
+            >
+              <a href="https://blog.csdn.net/m0_74331272?type=blog" target="_blank" rel="noopener noreferrer" aria-label="CSDN Blog">
+                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </Button>
           </div>
