@@ -46,81 +46,187 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
+/* ══════════════════════════════════════════════
+   珠光白 (Pearlescent White) — Light Mode
+   微暖底色 + 珍珠虹彩色散 accent
+   ══════════════════════════════════════════════ */
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: oklch(0.99 0.003 90);
+  --foreground: oklch(0.15 0.01 260);
+  --card: oklch(0.98 0.005 80);
+  --card-foreground: oklch(0.15 0.01 260);
+  --popover: oklch(0.99 0.003 90);
+  --popover-foreground: oklch(0.15 0.01 260);
+  --primary: oklch(0.35 0.04 280);
+  --primary-foreground: oklch(0.99 0.003 90);
+  --secondary: oklch(0.96 0.008 60);
+  --secondary-foreground: oklch(0.20 0.01 260);
+  --muted: oklch(0.96 0.006 80);
+  --muted-foreground: oklch(0.50 0.015 260);
+  --accent: oklch(0.95 0.012 300);
+  --accent-foreground: oklch(0.20 0.01 260);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.92 0.008 80);
+  --input: oklch(0.92 0.008 80);
+  --ring: oklch(0.70 0.04 300);
+  --chart-1: oklch(0.65 0.18 340);
+  --chart-2: oklch(0.62 0.15 200);
+  --chart-3: oklch(0.55 0.12 140);
+  --chart-4: oklch(0.72 0.16 60);
+  --chart-5: oklch(0.60 0.20 280);
+  --sidebar: oklch(0.98 0.005 80);
+  --sidebar-foreground: oklch(0.15 0.01 260);
+  --sidebar-primary: oklch(0.35 0.04 280);
+  --sidebar-primary-foreground: oklch(0.99 0.003 90);
+  --sidebar-accent: oklch(0.96 0.008 60);
+  --sidebar-accent-foreground: oklch(0.20 0.01 260);
+  --sidebar-border: oklch(0.92 0.008 80);
+  --sidebar-ring: oklch(0.70 0.04 300);
+
+  /* 珠光渐变变量 */
+  --pearl-gradient: linear-gradient(
+    135deg,
+    oklch(0.95 0.02 340) 0%,
+    oklch(0.97 0.015 60) 25%,
+    oklch(0.96 0.02 180) 50%,
+    oklch(0.95 0.025 280) 75%,
+    oklch(0.96 0.02 340) 100%
+  );
+  --pearl-shimmer: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.98 0.03 300 / 40%) 50%,
+    transparent 100%
+  );
 }
 
+/* ══════════════════════════════════════════════
+   五彩黑 (Iridescent Black) — Dark Mode
+   深邃黑底 + 油膜虹彩色散高光
+   ══════════════════════════════════════════════ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.13 0.01 280);
+  --foreground: oklch(0.93 0.01 80);
+  --card: oklch(0.17 0.015 260);
+  --card-foreground: oklch(0.93 0.01 80);
+  --popover: oklch(0.17 0.015 260);
+  --popover-foreground: oklch(0.93 0.01 80);
+  --primary: oklch(0.82 0.06 300);
+  --primary-foreground: oklch(0.13 0.01 280);
+  --secondary: oklch(0.22 0.02 260);
+  --secondary-foreground: oklch(0.93 0.01 80);
+  --muted: oklch(0.22 0.015 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  --accent: oklch(0.22 0.025 320);
+  --accent-foreground: oklch(0.93 0.01 80);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.60 0.06 300);
+  --chart-1: oklch(0.70 0.22 320);
+  --chart-2: oklch(0.65 0.18 180);
+  --chart-3: oklch(0.72 0.20 60);
+  --chart-4: oklch(0.60 0.25 280);
+  --chart-5: oklch(0.68 0.22 140);
+  --sidebar: oklch(0.15 0.015 280);
+  --sidebar-foreground: oklch(0.93 0.01 80);
+  --sidebar-primary: oklch(0.70 0.22 320);
+  --sidebar-primary-foreground: oklch(0.93 0.01 80);
+  --sidebar-accent: oklch(0.22 0.02 260);
+  --sidebar-accent-foreground: oklch(0.93 0.01 80);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.60 0.06 300);
+
+  /* 五彩虹光渐变变量 */
+  --pearl-gradient: linear-gradient(
+    135deg,
+    oklch(0.25 0.06 320) 0%,
+    oklch(0.22 0.05 260) 25%,
+    oklch(0.20 0.06 180) 50%,
+    oklch(0.23 0.07 60) 75%,
+    oklch(0.25 0.06 320) 100%
+  );
+  --pearl-shimmer: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.40 0.12 300 / 20%) 25%,
+    oklch(0.45 0.10 180 / 15%) 50%,
+    oklch(0.40 0.12 60 / 20%) 75%,
+    transparent 100%
+  );
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* 珠光微光动画 */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes iridescent-shift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  25% { filter: hue-rotate(30deg); }
+  50% { filter: hue-rotate(-20deg); }
+  75% { filter: hue-rotate(15deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes pearl-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* 点阵背景纹理 */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, oklch(0.5 0.02 280 / 10%) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.dark .dot-grid-bg {
+  background-image: radial-gradient(circle, oklch(0.7 0.06 300 / 6%) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* 珠光微光条纹 */
+.pearl-shimmer {
+  background: var(--pearl-shimmer);
+  background-size: 200% 100%;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+/* 五彩虹光色散 */
+.iridescent {
+  animation: iridescent-shift 12s ease-in-out infinite;
+}
+
+/* 打字机光标 */
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--primary); }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
