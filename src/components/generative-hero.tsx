@@ -130,14 +130,15 @@ export function GenerativeHero() {
         const dx = mx - p.x;
         const dy = my - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 220 && dist > 5) {
-          p.vx += (dx / dist) * 0.2;
-          p.vy += (dy / dist) * 0.2;
+        if (dist < 160 && dist > 10) {
+          const strength = 0.04 * (1 - dist / 160); // gentle falloff
+          p.vx += (dx / dist) * strength;
+          p.vy += (dy / dist) * strength;
         }
 
         /* Damping */
-        p.vx *= 0.965;
-        p.vy *= 0.965;
+        p.vx *= 0.94;
+        p.vy *= 0.94;
 
         p.x += p.vx;
         p.y += p.vy;
