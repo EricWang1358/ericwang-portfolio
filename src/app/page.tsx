@@ -13,15 +13,17 @@ import { motion, useInView } from "framer-motion";
 const projects = [
   {
     title: "AGV Scheduling Optimization",
-    description: "Won 1st Place at WSC 2024. Designed a 3-module heuristic for container terminal AGV scheduling — yard block allocation with queue-aware timing, weighted-distance berth allocation, and a linear scoring AGV dispatcher. Achieved the lowest 4.09% average delay rate across all teams.",
-    tags: ["Python", "Heuristics", "Optimization", "1st Place"],
+    brief: "WSC 2024 1st Place — 4.09% delay rate",
+    description: "3-module heuristic: queue-aware yard allocation, weighted-distance berth placement, linear-scoring AGV dispatch. Pivoted from DRL after convergence failure; two-stage grid search for optimal weights.",
+    tags: ["Python", "Heuristics", "Optimization"],
     link: "#",
     gradient: "from-amber-200/50 via-yellow-100/30 to-orange-200/40 dark:from-amber-900/30 dark:via-yellow-900/20 dark:to-orange-900/30",
     icon: <Trophy className="h-6 w-6" />,
   },
   {
     title: "Cache-Aware Data Orchestration",
-    description: "Research assistant project optimizing compiler memory layout for cache hit rate. Pivoted from ILP (intractable due to state-space explosion) to a Bellman-equation DP on weighted DAGs, achieving near-optimal solutions within compilation time budgets.",
+    brief: "Compiler cache optimization via DP on DAGs",
+    description: "ILP proved intractable due to state-space explosion. Pivoted to Bellman-equation DP on weighted dataflow graphs, achieving near-optimal cache hit rates within compilation time budgets.",
     tags: ["C++", "LLVM", "DP", "Research"],
     link: "#",
     gradient: "from-rose-200/40 via-amber-100/30 to-violet-200/40 dark:from-rose-900/30 dark:via-amber-900/20 dark:to-violet-900/30",
@@ -29,7 +31,8 @@ const projects = [
   },
   {
     title: "CUHK Data Space Platform",
-    description: "Capstone project implementing IDS architecture for secure cross-org data exchange. Led DAPS module (identity & token management) with FastAPI + Redis atomic locks. Containerized with Docker; Redis cut API latency 40%, Docker reduced setup time 70%.",
+    brief: "Secure data exchange with IDS architecture",
+    description: "Led DAPS module: identity verification & token issuance via FastAPI + Redis atomic locks. Docker containerization cut setup 70%; Redis reduced API latency 40%. Full CI/CD with GitHub Actions.",
     tags: ["FastAPI", "Redis", "Docker", "JWT"],
     link: "#",
     gradient: "from-emerald-200/40 via-cyan-100/30 to-blue-200/40 dark:from-emerald-900/30 dark:via-cyan-900/20 dark:to-blue-900/30",
@@ -37,7 +40,8 @@ const projects = [
   },
   {
     title: "Semantic Image Colorization",
-    description: "Explored whether semantic segmentation boosts grayscale colorization. Tested CNN, U-Net, and ViT backbones with 3 fusion methods across CIFAR-10 → COCO. Joint seg-colorization head hit 28.27 dB PSNR (+3.57 dB over baseline); cross-attention collapsed at scale.",
+    brief: "28.27 dB PSNR with joint seg-color head",
+    description: "Staged evaluation across CIFAR-10 → COCO. Three fusion methods on CNN/U-Net/ViT backbones. Joint head gained +3.57 dB over baseline; cross-attention collapsed at higher resolution.",
     tags: ["PyTorch", "ViT", "U-Net", "Deep Learning"],
     link: "#",
     gradient: "from-violet-200/40 via-pink-100/30 to-orange-200/40 dark:from-violet-900/30 dark:via-pink-900/20 dark:to-orange-900/30",
@@ -45,7 +49,8 @@ const projects = [
   },
   {
     title: "RISC-V Pipeline Simulator",
-    description: "Built a 5-stage pipeline simulator supporting RISC-V Vector Extension (RVV). Implemented vsetvl, vadd, vmul, vlw, vsw instructions with correct opcode/funct3/funct6 decoding, pipeline hazard handling, and vector register management.",
+    brief: "5-stage pipeline with RVV vector extension",
+    description: "Implemented vsetvl, vadd, vmul, vlw, vsw with correct opcode/funct3/funct6 decoding. Handled pipeline hazards, vector register management, and stage signal propagation in C++.",
     tags: ["C++", "RISC-V", "Pipeline", "Architecture"],
     link: "#",
     gradient: "from-sky-200/40 via-indigo-100/30 to-purple-200/40 dark:from-sky-900/30 dark:via-indigo-900/20 dark:to-purple-900/30",
@@ -53,7 +58,8 @@ const projects = [
   },
   {
     title: "Library Management System",
-    description: "Full-stack library system with Spring Boot + MyBatis backend and Vue.js frontend. Designed ER schema (4 tables, PK/FK constraints), role-based access (Reader/Admin), dynamic SQL queries, and transactional consistency for borrow/return operations.",
+    brief: "Full-stack Spring Boot + Vue.js CRUD app",
+    description: "ER schema with 4 tables and PK/FK constraints. Role-based access (Reader/Admin), MyBatis dynamic SQL, @Transactional consistency, and layered Controller-Service-Mapper architecture.",
     tags: ["Java", "Spring Boot", "Vue.js", "MySQL"],
     link: "#",
     gradient: "from-teal-200/40 via-green-100/30 to-lime-200/40 dark:from-teal-900/30 dark:via-green-900/20 dark:to-lime-900/30",
@@ -350,10 +356,19 @@ export default function Home() {
                       </h3>
                       <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
-                    <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      {project.description}
+                    {/* Brief — always visible */}
+                    <p className="mt-2 text-xs sm:text-sm text-muted-foreground/80 font-medium">
+                      {project.brief}
                     </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    {/* Full description — revealed on hover */}
+                    <div className="grid transition-all duration-500 ease-in-out grid-rows-[0fr] group-hover:grid-rows-[1fr]">
+                      <div className="overflow-hidden">
+                        <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                          {project.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
                       {project.tags.map((tag, tagIndex) => (
                         <span
                           key={tagIndex}
