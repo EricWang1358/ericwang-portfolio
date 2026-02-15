@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Cloud, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Cloud, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles, Trophy, Lock, Palette } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, useInView } from "framer-motion";
 
@@ -12,36 +12,52 @@ import { motion, useInView } from "framer-motion";
 
 const projects = [
   {
-    title: "Cache Optimization Research",
-    description: "LLVM-based cache simulation and optimization research with Python scripts for performance analysis",
-    tags: ["Python", "LLVM", "Research"],
+    title: "AGV Scheduling Optimization",
+    description: "Won 1st Place at WSC 2024. Designed a 3-module heuristic for container terminal AGV scheduling — yard block allocation with queue-aware timing, weighted-distance berth allocation, and a linear scoring AGV dispatcher. Achieved the lowest 4.09% average delay rate across all teams.",
+    tags: ["Python", "Heuristics", "Optimization", "1st Place"],
+    link: "#",
+    gradient: "from-amber-200/50 via-yellow-100/30 to-orange-200/40 dark:from-amber-900/30 dark:via-yellow-900/20 dark:to-orange-900/30",
+    icon: <Trophy className="h-6 w-6" />,
+  },
+  {
+    title: "Cache-Aware Data Orchestration",
+    description: "Research assistant project optimizing compiler memory layout for cache hit rate. Pivoted from ILP (intractable due to state-space explosion) to a Bellman-equation DP on weighted DAGs, achieving near-optimal solutions within compilation time budgets.",
+    tags: ["C++", "LLVM", "DP", "Research"],
     link: "#",
     gradient: "from-rose-200/40 via-amber-100/30 to-violet-200/40 dark:from-rose-900/30 dark:via-amber-900/20 dark:to-violet-900/30",
     icon: <Cpu className="h-6 w-6" />,
   },
   {
-    title: "Rongtai Report System",
-    description: "Full-stack reporting system with Vue.js frontend and FastAPI backend for enterprise data visualization",
-    tags: ["Vue.js", "FastAPI", "UniApp"],
+    title: "CUHK Data Space Platform",
+    description: "Capstone project implementing IDS architecture for secure cross-org data exchange. Led DAPS module (identity & token management) with FastAPI + Redis atomic locks. Containerized with Docker; Redis cut API latency 40%, Docker reduced setup time 70%.",
+    tags: ["FastAPI", "Redis", "Docker", "JWT"],
     link: "#",
     gradient: "from-emerald-200/40 via-cyan-100/30 to-blue-200/40 dark:from-emerald-900/30 dark:via-cyan-900/20 dark:to-blue-900/30",
-    icon: <Layers className="h-6 w-6" />,
+    icon: <Lock className="h-6 w-6" />,
   },
   {
-    title: "Cloud Computing Platform",
-    description: "Distributed computing project using Spark and Docker for scalable data processing",
-    tags: ["Spark", "Docker", "Cloud"],
-    link: "#",
-    gradient: "from-sky-200/40 via-indigo-100/30 to-purple-200/40 dark:from-sky-900/30 dark:via-indigo-900/20 dark:to-purple-900/30",
-    icon: <Cloud className="h-6 w-6" />,
-  },
-  {
-    title: "AI Whisper Transcription",
-    description: "Local deployment of OpenAI Whisper with GPU acceleration for audio-to-text conversion",
-    tags: ["Python", "AI", "Whisper"],
+    title: "Semantic Image Colorization",
+    description: "Explored whether semantic segmentation boosts grayscale colorization. Tested CNN, U-Net, and ViT backbones with 3 fusion methods across CIFAR-10 → COCO. Joint seg-colorization head hit 28.27 dB PSNR (+3.57 dB over baseline); cross-attention collapsed at scale.",
+    tags: ["PyTorch", "ViT", "U-Net", "Deep Learning"],
     link: "#",
     gradient: "from-violet-200/40 via-pink-100/30 to-orange-200/40 dark:from-violet-900/30 dark:via-pink-900/20 dark:to-orange-900/30",
-    icon: <Brain className="h-6 w-6" />,
+    icon: <Palette className="h-6 w-6" />,
+  },
+  {
+    title: "RISC-V Pipeline Simulator",
+    description: "Built a 5-stage pipeline simulator supporting RISC-V Vector Extension (RVV). Implemented vsetvl, vadd, vmul, vlw, vsw instructions with correct opcode/funct3/funct6 decoding, pipeline hazard handling, and vector register management.",
+    tags: ["C++", "RISC-V", "Pipeline", "Architecture"],
+    link: "#",
+    gradient: "from-sky-200/40 via-indigo-100/30 to-purple-200/40 dark:from-sky-900/30 dark:via-indigo-900/20 dark:to-purple-900/30",
+    icon: <Terminal className="h-6 w-6" />,
+  },
+  {
+    title: "Library Management System",
+    description: "Full-stack library system with Spring Boot + MyBatis backend and Vue.js frontend. Designed ER schema (4 tables, PK/FK constraints), role-based access (Reader/Admin), dynamic SQL queries, and transactional consistency for borrow/return operations.",
+    tags: ["Java", "Spring Boot", "Vue.js", "MySQL"],
+    link: "#",
+    gradient: "from-teal-200/40 via-green-100/30 to-lime-200/40 dark:from-teal-900/30 dark:via-green-900/20 dark:to-lime-900/30",
+    icon: <Database className="h-6 w-6" />,
   },
 ];
 
@@ -49,18 +65,21 @@ const skillIcons: Record<string, React.ReactNode> = {
   "Python": <Terminal className="h-3.5 w-3.5" />,
   "Java": <Code2 className="h-3.5 w-3.5" />,
   "C/C++": <Cpu className="h-3.5 w-3.5" />,
-  "JavaScript": <Globe className="h-3.5 w-3.5" />,
+  "JavaScript/TS": <Globe className="h-3.5 w-3.5" />,
   "Vue.js": <Layers className="h-3.5 w-3.5" />,
-  "React": <Code2 className="h-3.5 w-3.5" />,
+  "React/Next.js": <Code2 className="h-3.5 w-3.5" />,
   "SQL": <Database className="h-3.5 w-3.5" />,
-  "Machine Learning": <Brain className="h-3.5 w-3.5" />,
-  "Cloud Computing": <Cloud className="h-3.5 w-3.5" />,
+  "PyTorch/ML": <Brain className="h-3.5 w-3.5" />,
   "Docker": <Container className="h-3.5 w-3.5" />,
+  "FastAPI": <Globe className="h-3.5 w-3.5" />,
+  "Spring Boot": <Layers className="h-3.5 w-3.5" />,
+  "Redis": <Database className="h-3.5 w-3.5" />,
 };
 
 const skills = [
-  "Python", "Java", "C/C++", "JavaScript", "Vue.js",
-  "React", "SQL", "Machine Learning", "Cloud Computing", "Docker",
+  "Python", "Java", "C/C++", "JavaScript/TS", "Vue.js",
+  "React/Next.js", "SQL", "PyTorch/ML", "Docker",
+  "FastAPI", "Spring Boot", "Redis",
 ];
 
 const education = {
@@ -70,9 +89,9 @@ const education = {
 };
 
 const stats = [
-  { value: "4+", label: "Projects" },
-  { value: "10+", label: "Tech Skills" },
-  { value: "2026", label: "Graduation" },
+  { value: "6+", label: "Projects" },
+  { value: "12+", label: "Tech Skills" },
+  { value: "1st", label: "WSC 2024" },
 ];
 
 /* ─── Typewriter Hook ─── */
@@ -311,7 +330,7 @@ export default function Home() {
               A selection of things I&apos;ve built and worked on.
             </p>
           </AnimatedSection>
-          <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
+          <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <AnimatedSection key={index} delay={index * 0.1}>
                 <Card
@@ -366,13 +385,15 @@ export default function Home() {
           <div className="mt-8 grid gap-8 sm:gap-12 grid-cols-1 lg:grid-cols-2">
             <AnimatedSection delay={0.1}>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                I&apos;m a senior CS student at CUHK-Shenzhen, passionate about building practical
-                tools and solving real-world problems. My experience spans full-stack development,
-                cloud computing, and AI applications.
+                I&apos;m a senior CS student at CUHK-Shenzhen with hands-on experience spanning
+                compiler optimization, distributed systems, deep learning, and full-stack development.
+                I won 1st Place at the 2024 Winter Simulation Challenge for AGV scheduling optimization.
               </p>
               <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                I excel at leveraging modern AI tools to accelerate development workflows.
-                Currently seeking opportunities in software engineering and applied AI roles.
+                My approach: mathematical rigor meets engineering pragmatism. I know when to use
+                ILP vs DP, when to pivot from DRL to heuristics, and how to ship reliable systems
+                with Docker, CI/CD, and automated testing. Currently seeking opportunities in
+                software architecture and applied AI.
               </p>
               <div className="mt-6 p-4 rounded-xl bg-accent/50 border border-border backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-sm font-medium text-foreground">
