@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# AI skills (local-only, not part of website source)
+skills/

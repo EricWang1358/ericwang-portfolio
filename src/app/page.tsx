@@ -4,8 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Cloud, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles, Trophy, Lock, Palette } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles, Trophy, Lock, Palette, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { GenerativeHero } from "@/components/generative-hero";
 import { motion, useInView } from "framer-motion";
 
 /* ─── Data ─── */
@@ -165,8 +166,27 @@ export default function Home() {
     "Cloud Explorer",
   ]);
 
+  // Scroll progress
+  const [scrollProgress, setScrollProgress] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(h > 0 ? window.scrollY / h : 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background font-[family-name:var(--font-body)] transition-colors duration-500 dot-grid-bg">
+      {/* Scroll progress line */}
+      <div
+        className="fixed top-0 left-0 z-[60] h-[2px] transition-[width] duration-150 ease-out"
+        style={{ width: `${scrollProgress * 100}%` }}
+      >
+        <div className="h-full w-full bg-gradient-to-r from-primary via-ring to-primary" />
+      </div>
+
       {/* ═══ Navigation ═══ */}
       <nav className="fixed top-4 left-4 right-4 z-50 mx-auto max-w-6xl">
         <motion.div
@@ -231,21 +251,8 @@ export default function Home() {
 
       {/* ═══ Hero Section ═══ */}
       <section className="relative flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 pt-20 overflow-hidden">
-        {/* Pearlescent / Iridescent glow orbs */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div
-            className="absolute -top-32 left-1/4 h-[420px] w-[420px] rounded-full opacity-40 blur-[100px] iridescent"
-            style={{ background: "var(--pearl-gradient)" }}
-          />
-          <div
-            className="absolute -bottom-20 right-1/4 h-[350px] w-[350px] rounded-full opacity-30 blur-[100px]"
-            style={{ background: "var(--pearl-gradient)", animationDelay: "4s", animationName: "iridescent-shift", animationDuration: "12s", animationTimingFunction: "ease-in-out", animationIterationCount: "infinite" }}
-          />
-          <div
-            className="absolute top-1/3 right-[10%] h-[200px] w-[200px] rounded-full opacity-20 blur-[80px]"
-            style={{ background: "var(--pearl-gradient)", animationDelay: "8s", animationName: "iridescent-shift", animationDuration: "12s", animationTimingFunction: "ease-in-out", animationIterationCount: "infinite" }}
-          />
-        </div>
+        {/* Generative particle flow-field (algorithmic-art skill) */}
+        <GenerativeHero />
 
         {/* Pearl shimmer line */}
         <div className="absolute top-0 left-0 right-0 h-px pearl-shimmer" />
@@ -305,6 +312,23 @@ export default function Home() {
             </Button>
           </div>
         </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.5, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/40"
+          style={{ opacity: Math.max(0, 1 - scrollProgress * 20) }}
+        >
+          <span className="text-[10px] uppercase tracking-[0.25em] font-medium">scroll</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown className="h-4 w-4" />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ═══ Stats Section ═══ */}
@@ -344,6 +368,9 @@ export default function Home() {
                 >
                   {/* Gradient cover */}
                   <div className={`h-32 sm:h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+                    <span className="absolute top-3 left-4 font-[family-name:var(--font-heading)] text-2xl font-bold text-foreground/[0.08] dark:text-foreground/[0.06] select-none">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     <div className="absolute inset-0 pearl-shimmer opacity-30" />
                     <div className="h-14 w-14 rounded-xl bg-background/60 dark:bg-background/40 backdrop-blur-sm flex items-center justify-center text-primary transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                       {project.icon}
@@ -424,18 +451,35 @@ export default function Home() {
               <h3 className="font-[family-name:var(--font-heading)] text-base sm:text-lg font-semibold text-foreground">
                 Skills & Technologies
               </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {skills.map((skill, index) => (
-                  <motion.span
-                    key={index}
-                    whileHover={{ scale: 1.08, y: -2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/50 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 cursor-default"
-                  >
-                    <span className="text-primary/70">{skillIcons[skill]}</span>
-                    {skill}
-                  </motion.span>
-                ))}
+              <div className="mt-6 space-y-3">
+                {/* Row 1 → right */}
+                <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                  <div className="flex gap-3 animate-marquee hover:[animation-play-state:paused]">
+                    {[...skills, ...skills].map((skill, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-accent/50 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10"
+                      >
+                        <span className="text-primary/70">{skillIcons[skill]}</span>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {/* Row 2 ← left */}
+                <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                  <div className="flex gap-3 animate-marquee-reverse hover:[animation-play-state:paused]">
+                    {[...skills.slice().reverse(), ...skills.slice().reverse()].map((skill, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-accent/50 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10"
+                      >
+                        <span className="text-primary/70">{skillIcons[skill]}</span>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
           </div>
@@ -532,6 +576,17 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Film grain overlay (theme-factory skill) */}
+      <svg
+        className="pointer-events-none fixed inset-0 z-[200] h-full w-full opacity-[0.02] dark:opacity-[0.035]"
+        aria-hidden="true"
+      >
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
     </div>
   );
 }
