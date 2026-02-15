@@ -107,12 +107,9 @@ export function GenerativeHero() {
       frame++;
       const isDark = dark();
 
-      /* Fade trails */
+      /* Clear canvas fully each frame (no lingering trails) */
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = isDark
-        ? "rgba(18, 16, 32, 0.1)"
-        : "rgba(253, 251, 248, 0.1)";
-      ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
 
       /* Dark mode: screen blend → luminous glow */
       ctx.globalCompositeOperation = isDark ? "screen" : "source-over";
@@ -123,22 +120,22 @@ export function GenerativeHero() {
       for (const p of particles) {
         /* Flow force */
         const angle = flow(p.x, p.y, t);
-        p.vx += Math.cos(angle) * 0.1;
-        p.vy += Math.sin(angle) * 0.1;
+        p.vx += Math.cos(angle) * 0.03;
+        p.vy += Math.sin(angle) * 0.03;
 
         /* Mouse attraction (gentle gravity well) */
         const dx = mx - p.x;
         const dy = my - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 160 && dist > 10) {
-          const strength = 0.04 * (1 - dist / 160); // gentle falloff
+          const strength = 0.1 * (1 - dist / 560); // gentle falloff
           p.vx += (dx / dist) * strength;
           p.vy += (dy / dist) * strength;
         }
 
         /* Damping */
-        p.vx *= 0.94;
-        p.vy *= 0.94;
+        p.vx *= 0.80;
+        p.vy *= 0.80;
 
         p.x += p.vx;
         p.y += p.vy;
@@ -163,9 +160,9 @@ export function GenerativeHero() {
           p.life = 0;
         }
 
-        const a = alpha * (isDark ? 0.45 : 0.25);
-        const l = isDark ? 72 : 82;
-        const sat = isDark ? 55 : 35;
+        const a = alpha * (isDark ? 0.45 : 0.9);
+        const l = isDark ? 72 : 88;
+        const sat = isDark ? 55 : 20;
 
         /* Draw mote */
         ctx.beginPath();
@@ -178,7 +175,7 @@ export function GenerativeHero() {
         if (spd > 0.25) {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p.x - p.vx * 5, p.y - p.vy * 5);
+          ctx.lineTo(p.x - p.vx * 10, p.y - p.vy * 10);
           ctx.strokeStyle = `hsla(${p.hue}, ${sat + 10}%, ${l}%, ${a * 0.35})`;
           ctx.lineWidth = p.size * 0.4;
           ctx.stroke();

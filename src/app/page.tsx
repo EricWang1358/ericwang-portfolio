@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles, Trophy, Lock, Palette, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap, Menu, X, BookOpen, Instagram, Code2, Database, Brain, Layers, Terminal, Cpu, Globe, Container, Sparkles, Trophy, Lock, Palette, ChevronDown, Cloud } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GenerativeHero } from "@/components/generative-hero";
 import { motion, useInView } from "framer-motion";
@@ -78,6 +78,7 @@ const skillIcons: Record<string, React.ReactNode> = {
   "SQL": <Database className="h-3.5 w-3.5" />,
   "PyTorch/ML": <Brain className="h-3.5 w-3.5" />,
   "Docker": <Container className="h-3.5 w-3.5" />,
+  "AWS (EC2)": <Cloud className="h-3.5 w-3.5" />,
   "FastAPI": <Globe className="h-3.5 w-3.5" />,
   "Spring Boot": <Layers className="h-3.5 w-3.5" />,
   "Redis": <Database className="h-3.5 w-3.5" />,
@@ -85,9 +86,59 @@ const skillIcons: Record<string, React.ReactNode> = {
 
 const skills = [
   "Python", "Java", "C/C++", "JavaScript/TS", "Vue.js",
-  "React/Next.js", "SQL", "PyTorch/ML", "Docker",
+  "React/Next.js", "SQL", "PyTorch/ML", "Docker", "AWS (EC2)",
   "FastAPI", "Spring Boot", "Redis",
 ];
+
+const interests = [
+  {
+    title: "Games",
+    badgeClass: "border-sky-300/40 bg-sky-100/50 text-sky-900 dark:border-sky-700/40 dark:bg-sky-900/30 dark:text-sky-100",
+    panelClass: "from-sky-100/70 via-cyan-50/40 to-transparent dark:from-sky-900/25 dark:via-cyan-900/10",
+    items: [
+      { label: "Counter-Strike 2", weight: 4 },
+      { label: "Battlefield 2042", weight: 3 },
+      { label: "VALORANT", weight: 3 },
+      { label: "THE FINALS", weight: 2 },
+      { label: "Delta Force", weight: 2 },
+      { label: "GTA V", weight: 2 },
+      { label: "No Man's Sky", weight: 2 },
+      { label: "Stardew Valley", weight: 2 },
+      { label: "Civilization VI", weight: 1 },
+      { label: "Arknights", weight: 1 },
+    ],
+  },
+  {
+    title: "Food",
+    badgeClass: "border-amber-300/40 bg-amber-100/50 text-amber-900 dark:border-amber-700/40 dark:bg-amber-900/30 dark:text-amber-100",
+    panelClass: "from-amber-100/70 via-orange-50/40 to-transparent dark:from-amber-900/25 dark:via-orange-900/10",
+    items: [
+      { label: "Hotpot", weight: 3 },
+      { label: "BBQ", weight: 3 },
+      { label: "Xiao Long Bao", weight: 2 },
+      { label: "Fried Rice", weight: 2 },
+      { label: "Burgers", weight: 1 },
+      { label: "Japanese Food", weight: 1 },
+    ],
+  },
+  {
+    title: "Sports & Walks",
+    badgeClass: "border-emerald-300/40 bg-emerald-100/50 text-emerald-900 dark:border-emerald-700/40 dark:bg-emerald-900/30 dark:text-emerald-100",
+    panelClass: "from-emerald-100/70 via-lime-50/40 to-transparent dark:from-emerald-900/25 dark:via-lime-900/10",
+    items: [
+      { label: "Basketball", weight: 2 },
+      { label: "Table Tennis", weight: 2 },
+      { label: "Urban Walks", weight: 1 },
+    ],
+  },
+];
+
+const interestWeightClass = (weight: number) => {
+  if (weight >= 4) return "text-base sm:text-lg font-semibold px-4 sm:px-5 py-2.5";
+  if (weight === 3) return "text-sm sm:text-base font-semibold px-4 py-2";
+  if (weight === 2) return "text-sm font-medium px-3.5 py-1.5";
+  return "text-xs font-medium px-3 py-1";
+};
 
 const education = {
   school: "The Chinese University of Hong Kong, Shenzhen",
@@ -453,8 +504,8 @@ export default function Home() {
               </h3>
               <div className="mt-6 space-y-3">
                 {/* Row 1 → right */}
-                <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-                  <div className="flex gap-3 animate-marquee hover:[animation-play-state:paused]">
+                <div className="skills-marquee overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                  <div className="flex gap-3 animate-marquee group-hover/skills:[animation-play-state:paused]">
                     {[...skills, ...skills].map((skill, i) => (
                       <span
                         key={i}
@@ -467,8 +518,8 @@ export default function Home() {
                   </div>
                 </div>
                 {/* Row 2 ← left */}
-                <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-                  <div className="flex gap-3 animate-marquee-reverse hover:[animation-play-state:paused]">
+                <div className="skills-marquee-rev overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                  <div className="flex gap-3 animate-marquee-reverse group-hover/skills-rev:[animation-play-state:paused]">
                     {[...skills.slice().reverse(), ...skills.slice().reverse()].map((skill, i) => (
                       <span
                         key={i}
@@ -483,6 +534,83 @@ export default function Home() {
               </div>
             </AnimatedSection>
           </div>
+        </div>
+      </section>
+
+      {/* ═══ Interests Section ═══ */}
+      <section id="interests" className="px-4 sm:px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <AnimatedSection>
+            <h2 className="font-[family-name:var(--font-heading)] text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+              Interests
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Off-screen: FPS/sandbox games, food hunts, and sporty walks.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={0.1}>
+            <div className="mt-8 grid gap-4 sm:gap-5 lg:grid-cols-[1.4fr_0.6fr]">
+              {/* Left: dominant card */}
+              <div className="group relative overflow-hidden rounded-2xl border border-border bg-card/70 p-5 sm:p-6 backdrop-blur-sm">
+                <div className={"pointer-events-none absolute inset-0 bg-gradient-to-br " + interests[0].panelClass} />
+                <div className="relative flex items-center gap-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-primary/70 shadow-sm" />
+                  <h3 className="font-[family-name:var(--font-heading)] text-base sm:text-lg font-semibold text-foreground">
+                    {interests[0].title}
+                  </h3>
+                  <span className={"rounded-full border px-2 py-0.5 text-[11px] font-medium " + interests[0].badgeClass}>
+                    {interests[0].items.length} picks
+                  </span>
+                </div>
+                <div className="relative mt-4 flex flex-wrap gap-2.5 sm:gap-3">
+                  {interests[0].items.map((interest, idx) => (
+                    <span
+                      key={idx}
+                      className={
+                        "rounded-full border backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm " +
+                        interests[0].badgeClass + " " +
+                        interestWeightClass(interest.weight)
+                      }
+                    >
+                      {interest.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: two compact cards */}
+              <div className="grid gap-4 sm:gap-5">
+                {[interests[1], interests[2]].map((group, i) => (
+                  <div key={i} className="group relative overflow-hidden rounded-2xl border border-border bg-card/70 p-4 sm:p-5 backdrop-blur-sm">
+                    <div className={"pointer-events-none absolute inset-0 bg-gradient-to-br " + group.panelClass} />
+                    <div className="relative flex items-center gap-3">
+                      <span className="h-2 w-2 rounded-full bg-primary/70 shadow-sm" />
+                      <h3 className="font-[family-name:var(--font-heading)] text-sm sm:text-base font-semibold text-foreground">
+                        {group.title}
+                      </h3>
+                      <span className={"rounded-full border px-2 py-0.5 text-[10px] font-medium " + group.badgeClass}>
+                        {group.items.length} picks
+                      </span>
+                    </div>
+                    <div className="relative mt-3 flex flex-wrap gap-2.5">
+                      {group.items.map((interest, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "rounded-full border backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm " +
+                            group.badgeClass + " " +
+                            interestWeightClass(interest.weight)
+                          }
+                        >
+                          {interest.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
